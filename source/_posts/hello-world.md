@@ -23,6 +23,12 @@ $ hexo server
 
 More info: [Server](https://hexo.io/docs/server.html)
 
+### Clean files
+
+``` bash
+$ hexo clean
+```
+
 ### Generate static files
 
 ``` bash

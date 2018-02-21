@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.qianhk.com
+url: http://qianhk.com
 root: /
 permalink: :year/:month/:title/
 permalink_defaults:
@@ -25,7 +25,13 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
+
+#https://www.maoxuner.cn/2017/03/10/hexo-skip-render.html
 skip_render:
+  - "google8752aaf728d81fcb.html"
+  - "your-other-ignore-file"
+  - "demo/*.html" #只能忽略单一目录下的html文件，子目录不忽略
+  - "demo/**"
 
 # Writing
 new_post_name: :title.md # File name of new posts

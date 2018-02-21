@@ -67,7 +67,7 @@ Coremltools当前还只支持python2，执行pip install -U coremltools，通用
 后续使用线性回归算法训练模型自己转一转，这里先下载苹果官方模型MobileNet回来试试效果：
 
 
-![ai_mobile_net_at_xcode](../images/ai_mobile_net_at_xcode.jpg)
+![ai_mobile_net_at_xcode](/images/ai_mobile_net_at_xcode.jpg)
 
 从中可以看出，输入是一个224*224的图片像素二维数组，输出有两个，classLabel表示最可能的结果文本，还有一个dictionary表示所有的识别结果及概率。
 
@@ -93,7 +93,7 @@ if (error) {
 
 App实际效果：
 
-![ai_ios_remote](../images/ai_ios_remote.jpg)
+![ai_ios_remote](/images/ai_ios_remote.jpg)
 
 背景大图是摄像头捕获的完整画面，将中间一块方形缩小到224*224，左下角即模型接受的实际图片，底部橙色背景白色文字的的即结果，对于训练到的图片还是识别准确的。
 
@@ -127,7 +127,7 @@ String result = String.format(Locale.getDefault()
 
 试验效果如下图：
 
-![android-linear_snapshot](../images/android-linear_snapshot.jpg)
+![android-linear_snapshot](/images/android-linear_snapshot.jpg)
 
 ## 参考：
 https://www.python.org/

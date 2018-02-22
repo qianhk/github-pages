@@ -2,6 +2,7 @@
 title: 客户端码农学习ML —— 工具框架Tensorflow
 date: 2018-02-21 11:06:50
 tags: [AI, Tensorflow]
+articleID: 客户端码农学习ML-工具框架Tensorflow
 ---
 
 与其上来就学习相对枯燥易让人放弃的数学，不如先做几个例子熟悉下整个操作流程，通过实战激发下兴趣。

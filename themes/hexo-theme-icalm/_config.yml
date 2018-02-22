@@ -34,3 +34,5 @@ disqus:
 
 # Miscellaneous
 favicon: /favicon.png
+
+gitment: true

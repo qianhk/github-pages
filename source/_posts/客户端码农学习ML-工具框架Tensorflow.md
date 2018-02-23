@@ -163,5 +163,8 @@ rather than disable SIP, I've resorted to linking the .dylib objects into /usr/l
 https://devtalk.nvidia.com/default/topic/1025945/mac-cuda-9-0-driver-fully-compatible-with-macos-high-sierra-10-13-error-quot-update-required-quot-solved-/
 
 
+## 　
+
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/02/客户端码农学习ML-工具框架Tensorflow/
 
 

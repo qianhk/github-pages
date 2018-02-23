@@ -134,5 +134,8 @@ https://www.zhihu.com/question/51039416
 
 https://www.zhihu.com/question/36324957
 
+## 　
+
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/02/客户端码农学习ML-整体了解/
 
 

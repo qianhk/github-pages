@@ -1,14 +1,21 @@
-## 客户端码农学习ML —— Numpy基本用法
+---
+title: 客户端码农学习ML —— Numpy基本用法
+date: 2018-03-02 22:12:43
+tags: [Numpy]
+articleID: 客户端码农学习ML-Numpy基本用法
+---
 
 本文总结下numpy中基本用法，脚本首先import numpy as np。
 
-### 创建矩阵
+## 创建矩阵
 
-```
+```java
 np.array([1, 2, 3])
 
 输出 [1 2 3]
 ```
+
+<!-- more -->
 
 ```
 np.array([(1, 2, 3), (4, 5, 6)], dtype=np.int32)
@@ -52,7 +59,7 @@ b = np.array([[2, 1, 0]
 ```
 >
 
-### 维度变换
+## 维度变换
 
 shape重定义
 
@@ -115,7 +122,7 @@ np.vsplit(a, 2)
 [array([[1, 2, 3]]), array([[4, 5, 6]])]
 ```
 
-### 矩阵运算
+## 矩阵运算
 
 矩阵与标量的加减乘除等于矩阵内各元素与标量的加减乘除
 
@@ -177,7 +184,7 @@ dot始终是矩阵乘法
 
 而*根据数据类型决定如何乘
 
-### 随机数
+## 随机数
 
 ```
 np.random.random((2, 3))
@@ -237,7 +244,7 @@ np.random.choice(list, size=(3, 4), replace=True)
 
 ```
 
-### 索引与切片
+## 索引与切片
 
 对于一维数组
 
@@ -274,7 +281,7 @@ a[:, 1] = [2 5]
 a[1:3, 1:3] = [[5 6]]
 ```
 
-### Boolean Arrays
+## Boolean Arrays
 
 ```
 x = np.arange(12).reshape(3,4)
@@ -289,7 +296,7 @@ x.any() : 是否有True? True
 x.all() : 是否都是True? False
 ```
 
-### 矩阵自身属性
+## 矩阵自身属性
 
 a.ndim a.shape a.size a.dtype a.itemsize
 
@@ -297,7 +304,7 @@ a.ndim a.shape a.size a.dtype a.itemsize
 
 输出分别是：2  (2, 3) 6 int64 8
 
-### 其它操作
+## 其它操作
 
 求和、最大、最小值、平均值、方差、标准差
 
@@ -323,14 +330,18 @@ np.diag(np.diag(a))
 
 ```
 
-### 总结
+## 总结
 
 很强大的矩阵操作库，其它还有大量功能待后续继续了解，如concatenate、dstack、column_stack、split、sina、sqrt、cumsum、fromfunction、floor、resize、where等等，还可以通过save、load、savetxt、loadtxt等进行文件读写。
 
-### 参考
+## 参考
 
 https://docs.scipy.org/doc/numpy-dev/user/quickstart.html
 
 http://blog.csdn.net/zenghaitao0128/article/details/78715140
 
 http://codingpy.com/article/an-introduction-to-numpy/
+
+## 　
+
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/03/客户端码农学习ML-Numpy基本用法/

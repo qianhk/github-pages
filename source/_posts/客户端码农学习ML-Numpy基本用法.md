@@ -9,7 +9,7 @@ articleID: 客户端码农学习ML-Numpy基本用法
 
 ## 创建矩阵
 
-```java
+```
 np.array([1, 2, 3])
 
 输出 [1 2 3]

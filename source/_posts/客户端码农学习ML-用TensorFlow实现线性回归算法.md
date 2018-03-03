@@ -82,10 +82,8 @@ for i in range(1000):
     loss_vec.append(tmp_loss)
 # 每25的倍数输出往控制台输出当前训练数据供查看进度
     if (i + 1) % 25 == 0:
-        print('Step #' + str(i + 1)
-         	+ ' K = ' + str(sess.run(K)))
-        print('Loss = ' + str(sess.run(loss
-        	, feed_dict={x_data: x, y_target: y})))
+        print('Step #' + str(i + 1) + ' K = ' + str(sess.run(K)))
+        print('Loss = ' + str(sess.run(loss, feed_dict={x_data: x, y_target: y})))
 
 # 当训练完成后k的值就是当前的得到的结果，可以通过sess.run(K)取得
 sess.close()

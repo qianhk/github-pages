@@ -5,7 +5,7 @@ tags: [Numpy]
 articleID: 客户端码农学习ML-Numpy基本用法
 ---
 
-本文总结下numpy中基本用法，脚本首先import numpy as np。
+本文从创建矩阵、维度变换、矩阵运算、随机数、索引等方面总结numpy中基本用法，脚本首先import numpy as np。
 
 ## 创建矩阵
 
@@ -15,8 +15,6 @@ np.array([1, 2, 3])
 输出 [1 2 3]
 ```
 
-<!-- more -->
-
 ```
 np.array([(1, 2, 3), (4, 5, 6)], dtype=np.int32)
 
@@ -24,6 +22,8 @@ np.array([(1, 2, 3), (4, 5, 6)], dtype=np.int32)
 [[1 2 3]
  [4 5 6]] 
 ```
+
+<!-- more -->
 
 ```
 np.zeros((2, 3))

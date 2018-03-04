@@ -28,8 +28,9 @@ np.array([(1, 2, 3), (4, 5, 6)], dtype=np.int32)
 ```
 np.zeros((2, 3))
 np.ones((2, 3), dtype=int)
+np.eye(3)
 
-创建全为0、全为1的矩阵
+创建全为0、全为1的矩阵，以及单位矩阵
 ```
 
 ```
@@ -52,9 +53,9 @@ np.linspace(1, 2, 11)
 > 首先定义a、b两个矩阵
 > 
 ```
-a = np.array([[1, 2, 3]
+A = np.array([[1, 2, 3]
             , [4, 5, 6]])
-b = np.array([[2, 1, 0]
+B = np.array([[2, 1, 0]
             , [1, 1, 1]])
 ```
 >
@@ -64,7 +65,7 @@ b = np.array([[2, 1, 0]
 shape重定义
 
 ```
-a = np.arange(1, 7).reshape(2, 3)
+A = np.arange(1, 7).reshape(2, 3)
 
 上述矩阵a还可以通过reshape改变1维数组为2行3列
 [[1 2 3]
@@ -74,8 +75,8 @@ a = np.arange(1, 7).reshape(2, 3)
 矩阵转置
 
 ```
-c = a.T
-c = a.transpose()
+C = A.T
+C = A.transpose()
 
 原先2行3列的矩阵变成了3行2列
 [[1 4]
@@ -83,10 +84,24 @@ c = a.transpose()
  [3 6]]
 ```
 
+逆矩阵(必须是方阵，即行、列的维度相等，同时det(D) != 0)
+
+```
+D = np.mat("1 2 3; 2 3 1; 3 1 2")
+
+D.I
+
+[[-0.27777778  0.05555556  0.38888889]
+ [ 0.05555556  0.38888889 -0.27777778]
+ [ 0.38888889 -0.27777778  0.05555556]]
+
+np.dot(D, D.I) = np.dot(D.I, D) = I 
+```
+
 水平组合: 要求横轴即1维上的数量相同
 
 ```
-np.hstack((a, b))
+np.hstack((A, B))
 
  [[1 2 3 2 1 0]
  [4 5 6 1 1 1]]
@@ -95,7 +110,7 @@ np.hstack((a, b))
 垂直组合: 要求纵轴即0维上的数量相同
 
 ```
-np.vstack((a, b))
+np.vstack((A, B))
 
  [[1 2 3]
  [4 5 6]
@@ -107,7 +122,7 @@ np.vstack((a, b))
 水平拆分
 
 ```
-np.hsplit(a, 3)
+np.hsplit(A, 3)
 
 [array([[1],[4]]), 
  array([[2],[5]]),
@@ -117,7 +132,7 @@ np.hsplit(a, 3)
 垂直拆分
 
 ```
-np.vsplit(a, 2)
+np.vsplit(A, 2)
 
 [array([[1, 2, 3]]), array([[4, 5, 6]])]
 ```
@@ -127,12 +142,12 @@ np.vsplit(a, 2)
 矩阵与标量的加减乘除等于矩阵内各元素与标量的加减乘除
 
 ```
-a + 1
+A + 1
 
 [[2 3 4]
  [5 6 7]]
 
-a * 2
+A * 2
 [[ 2  4  6]
  [ 8 10 12]]
 
@@ -141,16 +156,20 @@ a * 2
 矩阵与矩阵相加，各维度必须一致，相同位置的元素相加，否则报错
 
 ```
-a + b
+A + B
 
 [[3 3 3]
  [5 6 7]]
 ```
 
-用dot方法相乘，表示线性代数里的矩阵相乘
+用dot方法相乘，表示线性代数里的向量内积(也叫点积、数量积)或矩阵乘法
+
+要注意向量内积满足交换律但不满足结合律，相乘的结果是一个数。
+
+而矩阵乘法满足结合律但不满足交换律，相乘的结果还是一个矩阵。
 
 ```
-np.dot(a, c)
+np.dot(A, C)
 
 [[14 32]
  [32 77]]
@@ -158,29 +177,55 @@ np.dot(a, c)
 但是当秩为1时，也是对应位置元素相乘并累加。
 ```
 
-用* 或者np.multiply相乘，维度也必须一致，相同位置的元素相乘
+用multiply相乘，维度也必须一致，相同位置的元素相乘
 
 ```
-a * b 或者np.multiply(a, b)
+np.multiply(A, B)
 
 [[2 2 0]
  [4 5 6]]
 ```
 
-a, b创建后的类型是type(a) = 'numpy.ndarray', 如果显式转换成matrix类型，那么*则是线性代数里的矩阵相乘，通过np.mat(a)转换为'numpy.matrixlib.defmatrix.matrix'。
+A, B创建后的类型是type(A) = 'numpy.ndarray', 如果显式转换成matrix类型，那么*跟dot含义一致，否则跟multiply一致。通过np.mat(A)转换为'numpy.matrixlib.defmatrix.matrix'。
 
 ```
-np.mat(a) * np.mat(c)
+A * B
+
+[[2 2 0]
+ [4 5 6]]
+```
+
+```
+np.mat(A) * np.mat(C)
 
 [[14 32]
  [32 77]]
 ```
 
-即:
+用向量试试：
+
+```
+M = np.array([1, 2, 3])
+N = np.array([1, 0, 2])
+print('\nM = %s    N = %s type(M)=%s' % (M, N, type(M)))
+
+DOT_MN = np.dot(M, N)
+print('dot(M,N)=%s  type=%s' % (DOT_MN, type(DOT_MN)))
+
+DOT_MAT_MN = np.dot(np.mat(M), np.mat(N).T)
+print('dot(mat(M), mat(N).T)=%s  type=%s' % (DOT_MAT_MN, type(DOT_MAT_MN)))
+
+输出如下：
+M = [1 2 3]    N = [1 0 2] type(M)=<class 'numpy.ndarray'>
+dot(M,N)=7  type=<class 'numpy.int64'>
+dot(mat(M), mat(N).T)=[[7]]  type=<class 'numpy.matrixlib.defmatrix.matrix'>
+```
+
+总结下来，即:
 
 multiply始终是数乘，相同位置元素相乘
 
-dot始终是矩阵乘法
+dot始终是向量内积或者矩阵乘法
 
 而*根据数据类型决定如何乘
 
@@ -270,35 +315,35 @@ x[::-2] = [9 7 5 3 1]
 对于多维矩阵，每个维度之间用,分隔开，单独用类似于一维数组的方式指定索引
 
 ```
-print('a[1] = %s\n' % a[1])
-print('a[1, :] = %s\n' % a[1, :])
-print('a[:, 1] = %s\n' % a[:, 1])
-print('a[1:3, 1:3] = %s\n' % a[1:3, 1:3])
+print('A[1] = %s\n' % A[1])
+print('A[1, :] = %s\n' % A[1, :])
+print('A[:, 1] = %s\n' % A[:, 1])
+print('A[1:3, 1:3] = %s\n' % A[1:3, 1:3])
 
-a[1] = [4 5 6]
-a[1, :] = [4 5 6]
-a[:, 1] = [2 5]
-a[1:3, 1:3] = [[5 6]]
+A[1] = [4 5 6]
+A[1, :] = [4 5 6]
+A[:, 1] = [2 5]
+A[1:3, 1:3] = [[5 6]]
 ```
 
 ## Boolean Arrays
 
 ```
-x = np.arange(12).reshape(3,4)
-x = x > 4
+X = np.arange(12).reshape(3,4)
+X = X > 4
 
 [[False False False False]
  [False  True  True  True]
  [ True  True  True  True]]
  
  
-x.any() : 是否有True? True
-x.all() : 是否都是True? False
+X.any() : 是否有True? True
+X.all() : 是否都是True? False
 ```
 
 ## 矩阵自身属性
 
-a.ndim a.shape a.size a.dtype a.itemsize
+A.ndim A.shape A.size A.dtype A.itemsize
 
 分别表示：矩阵维数、各维度具体大小、元素总数、元素类型、此类型占用字节数
 
@@ -309,7 +354,7 @@ a.ndim a.shape a.size a.dtype a.itemsize
 求和、最大、最小值、平均值、方差、标准差
 
 ```
-a.sum(), a.min(), a.max(), a.mean(), a.var(), a.std()
+A.sum(), A.min(), A.max(), A.mean(), A.var(), A.std()
 
 sum=21 min=1 max=6 mean=3.5 var=2.9167 std=1.7078
 
@@ -319,11 +364,11 @@ sum=21 min=1 max=6 mean=3.5 var=2.9167 std=1.7078
 
 
 ```
-np.diag(a)
+np.diag(A)
 
 [1 5]
 
-np.diag(np.diag(a))
+np.diag(np.diag(A))
 
 [[1 0]
  [0 5]]

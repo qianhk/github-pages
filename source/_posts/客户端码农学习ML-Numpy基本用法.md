@@ -225,7 +225,7 @@ dot(mat(M), mat(N).T)=[[7]]  type=<class 'numpy.matrixlib.defmatrix.matrix'>
 
 multiply始终是数乘，相同位置元素相乘
 
-dot始终是向量内积或者矩阵乘法
+dot始终是向量内积或者矩阵乘法，经试验 A @ C 结果等同于 dot
 
 而*根据数据类型决定如何乘
 

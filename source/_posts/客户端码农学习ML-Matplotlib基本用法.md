@@ -1,10 +1,17 @@
-## 客户端码农学习ML —— Matplotlib基本用法
+---
+title: 客户端码农学习ML —— Matplotlib基本用法
+date: 2018-03-10 19:58:26
+tags: [Matplotlib]
+articleID: 客户端码农学习ML-Matplotlib基本用法
+---
 
 在进行AI学习、统计的时候，通常用Matplotlib进行数据的可视化，本文总结下Matplotlib中基本用法，首先import matplotlib.pyplot as plt。
 
 ## 基本用法
 
 Matplotlib可以绘制很多种类型的图，见底部参考，常见的是折线图，其次还有散点图、柱状图、条状图、饼图、动态图、3D图等。
+
+<!-- more -->
 
 ### 折线图
 
@@ -63,7 +70,7 @@ plt.show()
 ```
 下图中红色的即是画出来的折线图效果
 
-![plt_plot_bar](./images/plt_plot_bar.png)
+![plt_plot_bar](/images/plt_plot_bar.png)
 
 ### 柱状图
 
@@ -73,17 +80,17 @@ plt.show()
 
 plot换成plt.barh(range(0, 5), y, color='y', label="条形图label")
 
-![plt_barh](./images/plt_barh.png)
+![plt_barh](/images/plt_barh.png)
 
 ### 散点图
 
 plot换成plt.scatter(range(0, 5), y, color='m', label="散点图label")
 
-![plt_scatter](./images/plt_scatter.png)
+![plt_scatter](/images/plt_scatter.png)
 
 ### 饼状图
 
-https://liam0205.me/2014/09/11/matplotlib-tutorial-zh-cn/
+
 
 ### 等高线图
 
@@ -154,7 +161,7 @@ plt.annotate(r'$\sin(\frac{2\pi}{3})=\frac{\sqrt{3}}{2}$',
 
 plt.show()
 ```
-![plt_sin_cos](./images/plt_sin_cos.png)
+![plt_sin_cos](/images/plt_sin_cos.png)
 
 ### numpy里画的正态分布图
 
@@ -179,7 +186,7 @@ plt.plot(x_data, 1. / (np.sqrt(2 * np.pi) * scale) * np.exp(-(x_data - loc) ** 2
 count, bins, _ = plt.hist(data, 30, normed=True)
 plt.show()
 ```
-![plt_hist](./images/plt_hist.png)
+![plt_hist](/images/plt_hist.png)
 
 
 除此之外，还可以画子图，还有大量api可供使用，画出更绚丽的图片来，可看参考里的官方文档尝试。
@@ -198,3 +205,6 @@ https://liam0205.me/2014/09/11/matplotlib-tutorial-zh-cn/
 
 http://conanwhf.github.io/2018/02/12/DrawByMatplotlib/
 
+## 　
+
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/03/客户端码农学习ML-Matplotlib基本用法/

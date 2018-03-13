@@ -90,9 +90,59 @@ plot换成plt.scatter(range(0, 5), y, color='m', label="散点图label")
 
 ### 饼状图
 
+```
+list = np.array([1, 2, 3, 4])
+plt.pie(list)
+plt.show()
 
+最简单的如上，给个数组即可，一般指定其他参数以使得图像更可读，下面这个还用上面的list。
+
+labels = [u'First', 'Second', 'Third', 'Fourth'] //每块饼的标签文本
+colors = ['red', 'Yellow', 'blue', 'green'] //每块饼的颜色
+explode = (0.15, 0, 0, 0) //每块饼突出图形的比例
+plt.pie(list, explode=explode, labels=labels
+	, colors=colors, startangle=60 //startangle 第一块开始的角度
+	, labeldistance=1.1 //标签文本距离圆心的半径比例
+	, pctdistance=0.6 //百分比文本距离圆心的半径比例
+	, autopct='%.1f%%') //百分比的格式化形式
+plt.axis('equal') //x、y轴坐标系相等，这样画出来整体就是圆形
+plt.legend() //需要图例
+plt.show()
+
+```
+![plt_pie](../images/plt_pie.png)
 
 ### 等高线图
+
+```
+来自 https://matplotlib.org/examples/images_contours_and_fields/contourf_log.html
+
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy import ma
+from matplotlib import colors, ticker, cm
+from matplotlib.mlab import bivariate_normal
+
+N = 100
+x = np.linspace(-3.0, 3.0, N)
+y = np.linspace(-2.0, 2.0, N)
+
+X, Y = np.meshgrid(x, y)
+
+z = (bivariate_normal(X, Y, 0.1, 0.2, 1.0, 1.0)
+     + 0.1 * bivariate_normal(X, Y, 1.0, 1.0, 0.0, 0.0))
+
+z[:5, :5] = -1
+
+z = ma.masked_where(z <= 0, z)
+
+fig, ax = plt.subplots()
+cs = ax.contourf(X, Y, z, locator=ticker.LogLocator(), cmap=cm.PuBu_r)
+cbar = fig.colorbar(cs)
+plt.show()
+```
+
+![plt_contourf_log](../images/plt_contourf_log.png)
 
 ### 灰度图
 
@@ -100,9 +150,93 @@ plot换成plt.scatter(range(0, 5), y, color='m', label="散点图label")
 
 ### 极轴图
 
+```
+来自https://matplotlib.org/examples/pie_and_polar_charts/polar_bar_demo.html
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Compute pie slices
+N = 20
+theta = np.linspace(0.0, 2 * np.pi, N, endpoint=False)
+radii = 10 * np.random.rand(N)
+width = np.pi / 4 * np.random.rand(N)
+
+ax = plt.subplot(111, projection='polar')
+bars = ax.bar(theta, radii, width=width, bottom=0.0)
+
+# Use custom colors and opacity
+for r, bar in zip(radii, bars):
+    bar.set_facecolor(plt.cm.viridis(r / 10.))
+    bar.set_alpha(0.5)
+
+plt.show()
+```
+
+![plt_polar_bar_demo](../images/plt_polar_bar_demo.png)
+
 ### 动态图
 
+```
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.arange(6)
+y = np.arange(5)
+z = x * y[:, np.newaxis]
+
+for i in range(5):
+    if i == 0:
+        p = plt.imshow(z)
+        fig = plt.gcf()
+        plt.clim()   # clamp the color limits
+        plt.title("Boring slide show")
+    else:
+        z = z + 2
+        p.set_data(z)
+
+    print("step", i)
+    plt.pause(0.5)
+
+通过每隔0.5s动态更新形成动画
+```
+
 ### 3D图
+
+```
+来自https://matplotlib.org/examples/mplot3d/surface3d_demo.html
+
+from mpl_toolkits.mplot3d import Axes3D
+
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import numpy as np
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+
+X = np.arange(-5, 5, 0.25)
+Y = np.arange(-5, 5, 0.25)
+X, Y = np.meshgrid(X, Y)
+R = np.sqrt(X ** 2 + Y ** 2)
+Z = np.sin(R)
+
+surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+
+ax.set_zlim(-1.01, 1.01)
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+fig.colorbar(surf, shrink=0.5, aspect=5)
+
+plt.show()
+```
+
+![plt_surface3d_demo4](../images/plt_surface3d_demo4.png)
+
+3D图还可以拖动用不同角度观看，实际上matplot能支持的图形还远不止这些，可以参考底部官方文档的参考。
 
 ## 一些有趣示例
 
@@ -193,9 +327,9 @@ plt.show()
 
 ## 参考
 
-https://matplotlib.org/
-
 https://matplotlib.org/gallery.html
+
+https://matplotlib.org/examples/pylab_examples/mathtext_examples.html
 
 https://docs.scipy.org/doc/numpy-dev/user/quickstart.html
 

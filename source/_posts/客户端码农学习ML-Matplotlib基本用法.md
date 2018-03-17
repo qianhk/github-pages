@@ -110,7 +110,7 @@ plt.legend() //需要图例
 plt.show()
 
 ```
-![plt_pie](../images/plt_pie.png)
+![plt_pie](/images/plt_pie.png)
 
 ### 等高线图
 
@@ -142,11 +142,33 @@ cbar = fig.colorbar(cs)
 plt.show()
 ```
 
-![plt_contourf_log](../images/plt_contourf_log.png)
+![plt_contourf_log](/images/plt_contourf_log.png)
 
-### 灰度图
+### 灰度图、热力图
 
-### 量场图
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+
+X = [[1, 2], [3, 4], [5, 6]]
+
+ax = fig.add_subplot(121)
+ax.imshow(X, cmap=plt.cm.gray)
+
+x = np.linspace(-5, 5, 100)
+y = x
+X, Y = np.meshgrid(x, y)
+result = np.sqrt(X ** 2 + Y ** 2)
+
+ax = fig.add_subplot(122)
+ax.imshow(result)
+
+plt.show()
+```
+
+![plt_imshow_kai_demo](/images/plt_imshow_kai_demo.png)
 
 ### 极轴图
 
@@ -173,7 +195,7 @@ for r, bar in zip(radii, bars):
 plt.show()
 ```
 
-![plt_polar_bar_demo](../images/plt_polar_bar_demo.png)
+![plt_polar_bar_demo](/images/plt_polar_bar_demo.png)
 
 ### 动态图
 
@@ -234,7 +256,7 @@ fig.colorbar(surf, shrink=0.5, aspect=5)
 plt.show()
 ```
 
-![plt_surface3d_demo4](../images/plt_surface3d_demo4.png)
+![plt_surface3d_demo4](/images/plt_surface3d_demo4.png)
 
 3D图还可以拖动用不同角度观看，实际上matplot能支持的图形还远不止这些，可以参考底部官方文档的参考。
 
@@ -323,7 +345,7 @@ plt.show()
 ![plt_hist](/images/plt_hist.png)
 
 
-除此之外，还可以画子图，还有大量api可供使用，画出更绚丽的图片来，可看参考里的官方文档尝试。
+除此之外，还可以画子图其他各种形式的图，还有大量api可供使用，画出更绚丽的图片来，可看参考里的官方文档尝试。
 
 ## 参考
 

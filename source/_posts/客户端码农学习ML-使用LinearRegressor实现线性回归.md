@@ -6,9 +6,11 @@ articleID: 客户端码农学习ML-使用LinearRegressor实现线性回归
 ---
 
 
-最近看了[Google官方机器学习教程](https://developers.google.cn/machine-learning/crash-course/prereqs-and-prework)，跟着练习了部分示例，其中[使用 TensorFlow 的起始步骤](https://colab.research.google.com/notebooks/mlcc/first_steps_with_tensor_flow.ipynb?hl=zh-cn)采用了LinearRegressor配合Pandas来进行线性回归训练。
+最近看了[Google官方机器学习教程](https://developers.google.cn/machine-learning/crash-course/prereqs-and-prework)，跟着练习了部分示例，其中[《使用 TensorFlow 的起始步骤》](https://colab.research.google.com/notebooks/mlcc/first_steps_with_tensor_flow.ipynb?hl=zh-cn)采用了LinearRegressor配合Pandas来进行线性回归训练。
 
-于是使用两者重新写了一个版本的线性回归训练，数据也从之前python直接生成模拟数据改成了从csv文件读取，而csv文件来源于excel: A1的100行等于1-100， B1=A1*5+50+RANDBETWEEN(-10, 10)。
+于是使用两者重新写了一个版本的线性回归训练，数据也从之前python直接生成模拟数据改成了从csv文件读取，而csv文件来源于Excel: A列的100行等于1至100的序列， B=A*5+50+RANDBETWEEN(-10, 10)。
+
+### 读取数据集及特征准备
 
 ```
 import numpy as np
@@ -30,6 +32,11 @@ feature_columns = [x_feature_column]
 
 target_series = linear_dataframe["y"]
 
+```
+
+### 训练
+
+```
 my_optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001)
 # my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer, 5.0)
 
@@ -50,7 +57,12 @@ def my_input_fn(feature_dataframe, target_series, batch_size=1, shuffle=True, nu
 
 
 _ = linear_regressor.train(input_fn=lambda: my_input_fn(my_feature_dataframe, target_series), steps=2000)
+```
 
+
+### 结果评估
+
+```
 predict_input_fn = lambda: my_input_fn(my_feature_dataframe, target_series, num_epochs=1, shuffle=False)
 
 predictions = linear_regressor.predict(input_fn=predict_input_fn)
@@ -80,13 +92,40 @@ result_dataframe = pd.DataFrame()
 result_dataframe["predictions"] = pd.Series(predictions)
 result_dataframe["targets"] = target_series
 print('\nresult dataframe:\n%s' % result_dataframe.describe())
-
 ```
 
+### 结果可视化
+
+```
+def show_visualization_data(x_data_array, y_data_array, w, b, loss_vec, title=None):
+    best_fit = []
+    for x in x_data_array:
+        best_fit.append(w * x + b)
+
+    plt.figure()
+
+    if title is not None:
+        plt.title(title)
+
+    ax = plt.subplot(121)
+    ax.scatter(x_data_array, y_data_array, color='y', label="样本", linewidths=0.5)
+    ax.plot(x_data_array, best_fit, color='b', linewidth=2)
+
+    if loss_vec is not None:
+        ax = plt.subplot(122)
+        ax.plot(loss_vec, color='g', linewidth=1)
+        ax.set_ylim(0, 1000)
+
+    plt.show()
+
+show_visualization_data(x_series, target_series, _w, _b, None, title='Pandas')
+```
 
 # 参考
 
+https://developers.google.cn/machine-learning/crash-course/prereqs-and-prework
 
+https://colab.research.google.com/notebooks/mlcc/first_steps_with_tensor_flow.ipynb?hl=zh-cn
 
 # 　
 

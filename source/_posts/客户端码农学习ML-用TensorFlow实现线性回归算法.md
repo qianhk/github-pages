@@ -1,7 +1,7 @@
 ---
 title: 客户端码农学习ML —— 用TensorFlow实现线性回归算法
 date: 2018-02-27 22:26:50
-tags: [AI, Tensorflow]
+tags: [AI, Tensorflow, Linear Regression]
 articleID: 客户端码农学习ML-用TensorFlow实现线性回归算法
 ---
 

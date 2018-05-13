@@ -10,6 +10,8 @@ articleID: 客户端码农学习ML-使用LinearRegressor实现线性回归
 
 于是使用两者重新写了一个版本的线性回归训练，数据也从之前python直接生成模拟数据改成了从csv文件读取，而csv文件来源于Excel: A列的100行等于1至100的序列， B=A*5+50+RANDBETWEEN(-10, 10)。
 
+<!-- more -->
+
 ### 读取数据集及特征准备
 
 ```
@@ -120,6 +122,10 @@ def show_visualization_data(x_data_array, y_data_array, w, b, loss_vec, title=No
 
 show_visualization_data(x_series, target_series, _w, _b, None, title='Pandas')
 ```
+
+可以得到与上一篇[《客户端码农学习ML —— 用TensorFlow实现线性回归算法》](/2018/02/客户端码农学习ML-用TensorFlow实现线性回归算法/)文中相似的图片：
+
+![ai_kai_line_only_mul_batch_line](/images/ai_kai_line_only_mul_batch_line.png)
 
 # 参考
 

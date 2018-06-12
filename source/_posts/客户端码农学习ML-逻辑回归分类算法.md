@@ -370,6 +370,6 @@ loss = tf.nn.sigmoid_cross_entropy_with_logits(logits=result_add, labels=y_targe
 
 ## 　
 
-本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/02/客户端码农学习ML-逻辑回归分类算法/
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/06/客户端码农学习ML-逻辑回归分类算法/
 
 

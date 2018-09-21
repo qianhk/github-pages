@@ -86,3 +86,11 @@ deploy:
   type: git
   repository: git@github.com:qianhk/qianhk.github.io.git
   branch: master
+
+math2:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    # src: custom_mathjax_source
+  config:
+      # MathJax config
+

@@ -8,4 +8,10 @@
   <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
   <%- css('//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css') %>
   <%- css('css/style') %>
+  <% if (theme.mathjax.enable) { %>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <%- js('http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML') %>
+    <% } %>
 </head>

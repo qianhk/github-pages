@@ -36,3 +36,8 @@ disqus:
 favicon: /favicon.png
 
 gitment: true
+
+# MathJax Support
+mathjax:
+  enable: true
+

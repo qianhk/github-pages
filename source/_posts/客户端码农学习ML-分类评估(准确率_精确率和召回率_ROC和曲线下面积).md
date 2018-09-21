@@ -1,9 +1,10 @@
 ---
 title: 客户端码农学习ML —— 分类评估(准确率_精确率和召回率_ROC和曲线下面积)
-date: 2018-08-04 10:45:21
+date: 2018-08-14 10:45:21
 tags: [AI, 评估]
 articleID: 客户端码农学习ML-分类评估(准确率_精确率和召回率_ROC和曲线下面积)
 ---
+
 
 正样本、负样本解释
 
@@ -14,6 +15,11 @@ TP TN FP FN
 ## 准确率 Accuracy
 
 准确率通常是我们最容易想到的一个评估分类模型的指标。通俗来说，准确率是指我们的模型预测正确的结果所占的比例。其值等于预测正确的样本数除以总样本数，取值范围[0,1]。
+
+$\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$
+
+$f(x)=ax+b$
+
 
 ![ai_score_Accuracy](../images/ai_score_Accuracy.png)
 

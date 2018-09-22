@@ -20,6 +20,17 @@ $\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$
 
 $f(x)=ax+b$
 
+$$\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN} = \frac{1+90}{1+90+1+8} = 0.91$$
+
+$\text{Precision} = \frac{TP}{TP+FP}$
+
+$\text{精确率} = \frac{TP}{TP+FP} = \frac{1}{1+1} = 0.5$
+
+$\text{召回率} = \frac{TP}{TP+FN} = \frac{1}{1+8} = 0.11$
+
+$\text{Precision} = \frac{TP}{TP + FP} = \frac{8}{8+2} = 0.8$
+
+$$\text{Recall} = \frac{TP}{TP + FN} = \frac{8}{8 + 3} = 0.73$$
 
 ![ai_score_Accuracy](../images/ai_score_Accuracy.png)
 

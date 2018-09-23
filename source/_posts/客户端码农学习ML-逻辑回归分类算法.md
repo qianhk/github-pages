@@ -29,7 +29,9 @@ articleID: 客户端码农学习ML-逻辑回归分类算法
 
 将线性回归的输出应用sigmoid函数后，即得到逻辑回归的模型函数，又名假设函数Hypothesis:
 
-![ai_logistic_hypothesis](/images/ai_logistic_hypothesis.png)
+$$h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e ^ {-\theta^T x}}$$
+
+<!--![ai_logistic_hypothesis](/images/ai_logistic_hypothesis.png)-->
 
 ## 损失函数
 
@@ -41,6 +43,10 @@ articleID: 客户端码农学习ML-逻辑回归分类算法
 
 数学家们脑袋又一转，又想到了对数损失函数。
 
+<!--$$Cost(h_\theta(x),y)= \lbrace $$-->
+
+<!--![ai_logistic_loss_log_function](../images/ai_logistic_loss_log_function.png)-->
+
 ![ai_logistic_loss_log_function](/images/ai_logistic_loss_log_function.png)
 
 当y=1时，图形形如下图中的左图，如果预测正确，损失为0，如果预测错误，损失无穷大。当y=0时，同样如果预测正确，损失为0，如果预测错误，损失无穷大。
@@ -49,7 +55,10 @@ articleID: 客户端码农学习ML-逻辑回归分类算法
 
 写成一个完整的函数后变成：
 
-![ai_logistic_loss_log_function_full](/images/ai_logistic_loss_log_function_full.png)
+$$Cost(h_\theta(x),y) = -y_ilog(h_\theta(x))-(1-y_i)log(1-h_\theta(x))$$
+
+
+<!--![ai_logistic_loss_log_function_full](/images/ai_logistic_loss_log_function_full.png)-->
 
 这个复杂的函数对于自变量θ是一个凸函数，画出的图形可看上面绿色图形中右边的子图，数学证明可求证二阶导数非负，可参考：[http://sofasofa.io/forum_main_post.php?postid=1000921](http://sofasofa.io/forum_main_post.php?postid=1000921)
 

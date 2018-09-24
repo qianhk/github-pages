@@ -29,6 +29,8 @@ articleID: 客户端码农学习ML-逻辑回归分类算法
 
 将线性回归的输出应用sigmoid函数后，即得到逻辑回归的模型函数，又名假设函数Hypothesis:
 
+** 【如果看到公式是乱七八糟的字符，请刷新下网页】 **
+
 $$h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e ^ {-\theta^T x}}$$
 
 <!--![ai_logistic_hypothesis](/images/ai_logistic_hypothesis.png)-->
@@ -43,11 +45,12 @@ $$h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e ^ {-\theta^T x}}$$
 
 数学家们脑袋又一转，又想到了对数损失函数。
 
-<!--$$Cost(h_\theta(x),y)= \lbrace $$-->
+$$Cost(h_\theta(x),y)= \begin{cases}
+-log(h_\theta(x)) & \text{if $y$ = 1} \\\\
+-log(1-h_\theta(x)) & \text{if $y$ = 0} \\\\
+\end{cases}$$
 
-<!--![ai_logistic_loss_log_function](../images/ai_logistic_loss_log_function.png)-->
-
-![ai_logistic_loss_log_function](/images/ai_logistic_loss_log_function.png)
+<!--![ai_logistic_loss_log_function](/images/ai_logistic_loss_log_function.png)-->
 
 当y=1时，图形形如下图中的左图，如果预测正确，损失为0，如果预测错误，损失无穷大。当y=0时，同样如果预测正确，损失为0，如果预测错误，损失无穷大。
 

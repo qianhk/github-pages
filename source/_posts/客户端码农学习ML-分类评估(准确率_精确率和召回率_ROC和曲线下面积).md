@@ -47,19 +47,6 @@ $\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN} = \frac{1+93}{1+93+1+5} = 0.94$
 
 因此科学家们定义了两个能够更好地评估分类不平衡问题的指标：精确率和召回率。
 
-
-
-$\text{精确率} = \frac{TP}{TP+FP} = \frac{1}{1+1} = 0.5$
-
-$\text{召回率} = \frac{TP}{TP+FN} = \frac{1}{1+8} = 0.11$
-
-$\text{Precision} = \frac{TP}{TP + FP} = \frac{8}{8+2} = 0.8$
-
-$$\text{Recall} = \frac{TP}{TP + FN} = \frac{8}{8 + 3} = 0.73$$
-
-
-![ai_score_Accuracy](../images/ai_score_Accuracy.png)
-
 ## 精确率 Precision 和召回率 Recall
 
 精确率是指：在被识别为正类别的样本中，确实为正类别的比例是多少？
@@ -68,29 +55,47 @@ $$\text{Precision} = \frac{TP}{TP+FP}$$
 
 召回率是指：在所有正类别样本中，被正确识别为正类别的比例是多少？
 
-![ai_score_Precision](../images/ai_score_Precision.png)
+$$\text{Recall} = \frac{TP}{TP + FN}$$
 
-![ai_score_Recall](../images/ai_score_Recall.png)
+对于上面肿瘤的例子：$\text{精确率} = \frac{TP}{TP+FP} = \frac{1}{1+1} = 0.5$，而$\text{召回率} = \frac{TP}{TP+FN} = \frac{1}{1+5} = 0.17$，可以看出精确率和召回率都很低，换句话说，识别精度不高代表识别为恶性肿瘤的可能很大几率并不是恶性肿瘤，召回率低代表很多恶性肿瘤没能识别出来。
 
-![ai_score_F1_score](../images/ai_score_F1_score.png)
+一般来说人们希望精确率和召回率都高，最好都是100%，这样代表识别出来的样本确实都是正类别，且所有正类别都被识别出来了。但是现实中这两个指标往往是此消彼长的关系，也就是说，提高精确率通常会降低召回率值，即使不从数学上证明，从感觉上也能理解，因为这两个指标的目标刚好相反，一个要求尽可能精确，那么要抛弃掉难以决定的把握不大的样本；而另一个指标要求尽可能识别出所有的正类别，那么就可能带入把握不大的样本。可以想象下识别垃圾邮件，精确与识别全难两全。
 
-精确率指标尝试回答以下问题：
+那么如果两个模型识别样本的精确率与召回率分别是：0.6 0.6 与 0.5 0.7，那么哪个好了？
 
-在被识别为正类别的样本中，确实为正类别的比例是多少？
+于是数学家又定义了一个指标去计算，名叫：F score，常见的是F1 score。
 
-召回率
-召回率尝试回答以下问题：
+## F1值
 
-在所有正类别样本中，被正确识别为正类别的比例是多少？
+F1 score 是精确值和召回率的调和均值，它的公式是：
 
-## ROC、曲线下面积
+$$ F_1 = \frac{2}{\frac{1}{recall} + \frac{1}{precision}} = 2 \cdot \frac{precision \cdot recall}{precision + recall} $$
+
+对于极端最好的例子：精确率=1.0 召回率=1.0时, $F_1 = 2 \cdot \frac{1.0 \cdot 1.0}{1.0 + 1.0} = 1.0 $
+
+
+于是对于上面的两个例子，F1 score分别是：
+
+precision=0.6 recall=0.6时 $F_1 = 2 \cdot  \frac{0.6 \cdot 0.6}{0.6 + 0.6} = 0.60 $
+
+precision=0.5 recall=0.7时 $F_1 = 2 \cdot  \frac{0.5 \cdot 0.7}{0.5 + 0.7} = 0.58 $
+
+显然precision=0.6 recall=0.6的模型效果相对稍微好点。
+
+
+## ROC、曲线下面积(AUC)
+
+除了上面的F1值外，还有方法来判断一个分类模型的好坏，且更直观，它就是ROC曲线。
+
+ROC 曲线（接收者操作特征曲线）是一种显示分类模型在所有分类阈值下的效果的图表。该曲线绘制了真正例率、假正例率两个参数。
+
+同样的，首先定义几个概念：
 
 TPR      true positive rate   等同召回率Recall
 FPR      false positive rate
 ROC     Receiver Operating Characteristic Curve 接收者操作特征曲线
 AUC     Area Under Curve score 曲线下面积值
 
-ROC 曲线（接收者操作特征曲线）是一种显示分类模型在所有分类阈值下的效果的图表。该曲线绘制了真正例率、假正例率两个参数。
 
 ![ai_score_FPR](../images/ai_score_FPR.png)
 
@@ -102,6 +107,11 @@ ROC 曲线（接收者操作特征曲线）是一种显示分类模型在所有�
 
 ![ai_score_roc2](../images/ai_score_roc2.png)
 
+## 总结
+
+总的来说，本文介绍的几个指标对于初学者来说还是比较绕的，先是比较直白的准确率，但是对于分类不均衡的样本来说准确率很不靠谱，于是有了精确率和召回率，但由于有两个指标，对于多个模型这两个指标差不多的情况下难以判断哪个更好于是出现了F1值，同时还有更直观的ROC曲线和曲线下面积，直接通过图形化方式直观的去看一个模型在各种分类阈值下的表现。
+
+
 ## 参考：
 
 [准确率](https://developers.google.cn/machine-learning/crash-course/classification/accuracy)
@@ -109,6 +119,10 @@ ROC 曲线（接收者操作特征曲线）是一种显示分类模型在所有�
 [精确率和召回率](https://developers.google.cn/machine-learning/crash-course/classification/precision-and-recall)
 
 [ROC 和曲线下面积](https://developers.google.cn/machine-learning/crash-course/classification/roc-and-auc)
+
+[F1 score](https://en.wikipedia.org/wiki/F1_score)
+
+[ROC和AUC介绍以及如何计算AUC](http://alexkong.net/2013/06/introduction-to-auc-and-roc/)
 
 ## 　
 

@@ -61,7 +61,7 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 一般来说人们希望精确率和召回率都高，最好都是100%，这样代表识别出来的样本确实都是正类别，且所有正类别都被识别出来了。但是现实中这两个指标往往是此消彼长的关系，也就是说，提高精确率通常会降低召回率值，即使不从数学上证明，从感觉上也能理解，因为这两个指标的目标刚好相反，一个要求尽可能精确，那么要抛弃掉难以决定的把握不大的样本；而另一个指标要求尽可能识别出所有的正类别，那么就可能带入把握不大的样本。可以想象下识别垃圾邮件，精确与识别全难两全。
 
-那么如果两个模型识别样本的精确率与召回率分别是：0.6 0.6 与 0.5 0.7，那么哪个好了？
+那么如果两个模型识别样本的精确率与召回率分别是：0.6 0.6 与 0.5 0.7，那么哪个好呢？
 
 于是数学家又定义了一个指标去计算，名叫：F score，常见的是F1 score。
 
@@ -91,21 +91,25 @@ ROC 曲线（接收者操作特征曲线）是一种显示分类模型在所有�
 
 同样的，首先定义几个概念：
 
-TPR      true positive rate   等同召回率Recall
-FPR      false positive rate
+真正例率 (TPR、true positive rate) 是召回率的同义词，因此定义如下：
+
+$$\text{TPR} = \frac{TP}{TP + FN}$$
+
+假正例率 (FPR、false positive rate)，定义如下：
+
+$$FPR = \frac{FP}{FP+TN}$$
+
 ROC     Receiver Operating Characteristic Curve 接收者操作特征曲线
-AUC     Area Under Curve score 曲线下面积值
 
+ROC 曲线用于绘制采用不同分类阈值时的 TPR 与 FPR。降低分类阈值会导致将更多样本归为正类别，从而增加假正例和真正例的个数。
 
-![ai_score_FPR](../images/ai_score_FPR.png)
+![ai_score_roc_origin_data](/images/ai_score_roc_origin_data.png)
 
-![ai_score_TPR](../images/ai_score_FPR.png)
+![ai_score_roc1](/images/ai_score_roc1.png)
 
-![ai_score_roc_origin_data](../images/ai_score_roc_origin_data.png)
+AUC     Area Under Curve score ROC曲线下面积值，也就是说，曲线下面积测量的是从 (0,0) 到 (1,1) 之间整个 ROC 曲线以下的整个二维面积。
 
-![ai_score_roc1](../images/ai_score_roc1.png)
-
-![ai_score_roc2](../images/ai_score_roc2.png)
+![ai_score_roc2](/images/ai_score_roc2.png)
 
 ## 总结
 

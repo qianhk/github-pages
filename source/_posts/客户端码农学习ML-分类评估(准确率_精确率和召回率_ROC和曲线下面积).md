@@ -99,7 +99,7 @@ $$\text{TPR} = \frac{TP}{TP + FN}$$
 
 $$FPR = \frac{FP}{FP+TN}$$
 
-ROC     Receiver Operating Characteristic Curve 接收者操作特征曲线
+ROC (Receiver Operating Characteristic Curve)接收者操作特征曲线
 
 ROC 曲线用于绘制采用不同分类阈值时的 TPR 与 FPR。降低分类阈值会导致将更多样本归为正类别，从而增加假正例和真正例的个数。
 
@@ -107,7 +107,7 @@ ROC 曲线用于绘制采用不同分类阈值时的 TPR 与 FPR。降低分类�
 
 ![ai_score_roc1](/images/ai_score_roc1.png)
 
-AUC     Area Under Curve score ROC曲线下面积值，也就是说，曲线下面积测量的是从 (0,0) 到 (1,1) 之间整个 ROC 曲线以下的整个二维面积。
+AUC (Area Under Curve score) ROC曲线下面积值，也就是说，曲线下面积测量的是从 (0,0) 到 (1,1) 之间整个 ROC 曲线以下的整个二维面积。
 
 ![ai_score_roc2](/images/ai_score_roc2.png)
 

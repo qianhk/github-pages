@@ -111,7 +111,11 @@ AUC (Area Under Curve) ROC曲线下面积值，也就是说，曲线下面积测
 
 ![ai_score_roc2](/images/ai_score_roc2.png)
 
-最大面积是1，此时覆盖左上角，而左上角TPR是1.0， FPR是0.0，说明所有的正例都识别出来了，而没有一个负例被错误的识别为正例。
+前文逻辑回归算法的一个模型可视化图：有样本及预测结果预览（左侧），还有训练时每次迭代损失值（右上角），accuracy，auc等指标（下方）：
+
+![ai_score_loss_accuracy_roc_auc](/images/ai_score_loss_accuracy_roc_auc.png)
+
+当面积是最大值1的时候，此时覆盖左上角，而左上角TPR是1.0， FPR是0.0，说明所有的正例都识别出来了，而没有一个负例被错误的识别为正例。
 
 ## 总结
 

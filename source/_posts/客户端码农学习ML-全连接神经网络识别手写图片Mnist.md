@@ -1,6 +1,6 @@
 ---
 title: 客户端码农学习ML —— 全连接神经网络识别手写图片Mnist
-date: 2018-10-02 18:46:28
+date: 2018-10-03 18:46:28
 tags: [AI, NN, MNIST]
 articleID: 客户端码农学习ML-全连接神经网络识别手写图片Mnist
 ---
@@ -13,19 +13,19 @@ articleID: 客户端码农学习ML-全连接神经网络识别手写图片Mnist
 
 每个神经元都可以被认为是一个处理单元，它含有许多输入/树突 (input/Dendrite)，并且有一个输出/轴突(output/Axon)。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。
 
-![ai_nn_sheng_shenjing](../images/ai_nn_sheng_shenjing.png)
+![ai_nn_sheng_shenjing](/images/ai_nn_sheng_shenjing.png)
 
 神经网络模型建立在很多神经元之上，每一个神经元又是一个个学习模型。这些神经元采纳一些特征作为输入，并且根据本身的模型提供一个输出。下图是一个以逻辑回归模型作为神经元的示例，在神经网络中，参数又可被成为权重(weight)，输出节点会有一个激活函数g(z)改变其线性关系为非线性关系。
 
 常见激活函数有：Sigmoid、ReLU、Tanh及其变种。
 
-![ai_nn_sheng_shenjing_unit](../images/ai_nn_sheng_shenjing_unit.png)
+![ai_nn_sheng_shenjing_unit](/images/ai_nn_sheng_shenjing_unit.png)
 
 <!--more-->
 
 当我们增加多个神经元后，就可以形成下图的神经网络模型：
 
-![ai_nn_full_model](../images/ai_nn_full_model.png)
+![ai_nn_full_model](/images/ai_nn_full_model.png)
 
 其中第一层输入层，含有x1 , x2 , x3等输入特征，我们将原始数据输入给它们。 
 第二层是隐藏层，a1 , a2 , a3是中间单元，它们负责将数据进行处理，然后呈递到下一层。
@@ -35,7 +35,7 @@ articleID: 客户端码农学习ML-全连接神经网络识别手写图片Mnist
 
 也可以先到google官方Neural Network Playground体验下，以便对nn有个直观印象。
 
-![ai_nn_google_playground](../images/ai_nn_google_playground.png)
+![ai_nn_google_playground](/images/ai_nn_google_playground.png)
 
 ## 逻辑与、或
 
@@ -111,7 +111,7 @@ sess.close()
 
 我们用机器学习界的Hello Word：Mnist手写数字识别来体验下全连接神经网络。
 
-官网（http://yann.lecun.com/exdb/mnist/），除了有下载地址，还有各种算法历年来拿这个数据集练手的最佳纪录。
+官网（http://yann.lecun.com/exdb/mnist/ ），除了有下载地址，还有各种算法历年来拿这个数据集练手的最佳纪录。
 
 该数据集也可以通过from tensorflow.examples.tutorials.mnist import input_data自动下载，mnist = input_data.read_data_sets('./cache/mnist/', one_hot=True)，指定缓存目录即可。
 
@@ -208,26 +208,81 @@ def train(mnist):
 
 ```
 
+当训练11000次后，损失0.06579（After last 11000 training step(s), loss on training is 0.06579054892063141）
+
 完整代码可见：(https://github.com/qianhk/FeiPython/tree/master/Python3Test/kaiMnist/full)
 
 ## 评估训练过程中的模型精度
 
-## nn常用损失函数
+我们再写个评估代码看看准确率怎么样，评估代码可以和训练代码开两个控制台一起运行，评估代码每隔若干秒比如5秒使用验证集预测下5000个样本的准确率，当然也可以选择测试集，此处只是初步体验下预测效果。
 
-tf.nn.sigmoid_cross_entropy_with_logits
+```
+x = tf.placeholder(tf.float32, [None, mnist_inference.INPUT_NODE], name='x-input')
+y_ = tf.placeholder(tf.float32, [None, mnist_inference.OUTPUT_NODE], name='y-input')
+validate_feed = {x: mnist.validation.images, y_: mnist.validation.labels}
 
+# 同样要定义计算图，直接用训练里定义好的方法
+y = mnist_inference.inference(x, None)
 
-## 总结
+# 判断预测值与样本里目标值是否相等
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+# saver = tf.train.Saver()
 
+variable_averages = tf.train.ExponentialMovingAverage(mnist_train.MOVING_AVERAGE_DECAY)
+variable_to_restore = variable_averages.variables_to_restore()
+print(f'variable_to_restore={variable_to_restore}')
+saver = tf.train.Saver(variable_to_restore)
 
+while True:
+    with tf.Session() as sess:
+    	 # 从训练代码里保存的模型文件中读取参数并运行预测方法
+        ckpt = tf.train.get_checkpoint_state(mnist_train.MODEL_SAVE_PATH)
+        if ckpt and ckpt.model_checkpoint_path:
+            saver.restore(sess, ckpt.model_checkpoint_path)
+            global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[-1]
+            accuracy_score = sess.run(accuracy, feed_dict=validate_feed)
+            print(f'After {global_step} training step(s), validation accuracy = {accuracy_score}')
+        else:
+            print('No checkpoint file found')
+    time.sleep(EVAL_INTERVAL_SECS)
+```
 
+最终，在验证集上准确率是: 98.3%，效果还是很不错的，在用上了正则化及滑动平均模型后仅仅一层隐藏层就能达到比较满意的效果。如果不是用上述优化方法，可能在训练集上得到更好的效果但由于过拟合导致泛化能力不行，从而在验证集或者测试集上准确率略微下降, 视参数不同准确率可能在94%-96%左右。
+
+## Neural Network常用损失函数
+
+在线性回归中，我们常用平方损失（又称为 L2 损失）作为损失函数, 均方误差MSE作为每个样本的平均平方损失， RMSE作为均方根误差。
+
+在逻辑回归二分类算法中，我们常用对数损失函数作为损失函数。
+
+而在神经网络中，我们主要是用各种交叉熵（cross_entropy）作为损失函数, 在TensorFlow中主要是末尾是tf.nn.xxxxxx_cross_entropy_with_logits的方法。
+
+logit函数定义为：$L(p)=ln\frac{p}{1-p}$, 是一种将取值范围在[0,1]内的概率映射到实数域[-inf,inf]的函数，如果p=0.5，函数值为0；p<0.5，函数值为负；p>0.5，函数值为正。
+
+相对地，softmax和sigmoid则都是将[-inf,inf]映射到[0,1]的函数。
+
+常见的有如下3种：
+
+### tf.nn.sigmoid_cross_entropy_with_logits
+
+计算网络输出logits和标签labels的sigmoid cross entropy loss，衡量独立不互斥离散分类任务的误差。
+
+### tf.nn.softmax_cross_entropy_with_logits
+
+计算网络输出logits和标签labels的softmax cross entropy loss，在多类别问题中，Softmax 会为每个类别分配一个用小数表示的概率。这些用小数表示的概率相加之和必须是 1.0。与其他方式相比，这种附加限制有助于让训练过程更快速地收敛。
+
+### tf.nn.sparse_softmax_cross_entropy_with_logits
+
+这个版本是tf.nn.softmax_cross_entropy_with_logits的易用版本，每个label的取值是从[0, num_classes)的离散值。
 
 ## 参考：
 
-[Google Neural Network Playground](http://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.06451&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false)
+[多类别神经网络 (Multi-Class Neural Networks)：Softmax](https://developers.google.cn/machine-learning/crash-course/multi-class-neural-networks/softmax)
 
-吴恩达机器学习教程：
-http://study.163.com/course/introduction/1004570029.htm
+[TF里几种loss和注意事项](https://zhuanlan.zhihu.com/p/33560183)
+
+[怎样理解 Cross Entropy](http://shuokay.com/2017/06/23/cross-entropy/)
 
 ## 　
 

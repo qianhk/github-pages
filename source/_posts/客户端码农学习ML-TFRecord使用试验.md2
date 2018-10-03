@@ -1,0 +1,26 @@
+---
+title: 客户端码农学习ML —— TFRecord使用试验
+date: 2018-10-03 15:22:36
+tags: [AI, Tensorflow, TFRecord]
+articleID: 客户端码农学习ML-TFRecord使用试验
+---
+
+## 由来
+
+<!--more-->
+
+## 总结
+
+
+
+
+## 参考：
+
+[Google Neural Network Playground](http://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.06451&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false)
+
+吴恩达机器学习教程：
+http://study.163.com/course/introduction/1004570029.htm
+
+## 　
+
+本文首发于[钱凯凯的博客](http://qianhk.com) : http://qianhk.com/2018/11/TFRecord使用试验/
